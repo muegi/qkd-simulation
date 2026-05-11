@@ -9,12 +9,12 @@ from qiskit_aer import AerSimulator
 
 class Eavesdropper:
     """
-    Implements Eve's intercept-resend attack on the quantum channel.
+    Implements Eve's intercept-resend attack on the quantum channel
     """
     
     def __init__(self, enabled=False):
         """
-        Initialize eavesdropper.
+        Initialize eavesdropper
         
         Args:
             enabled (bool): Whether Eve is active
@@ -26,7 +26,7 @@ class Eavesdropper:
     
     def intercept_and_resend(self, qubits):
         """
-        Eve intercepts qubits, measures them, and resends new qubits.
+        Eve intercepts qubits, measures them, and resends new qubits
         
         Args:
             qubits (list): List of quantum circuits from Alice
@@ -78,7 +78,7 @@ class Eavesdropper:
         return resent_qubits
     
     def reset(self):
-        """Reset eavesdropper statistics."""
+        """Reset eavesdropper statistics"""
         self.intercepted_count = 0
         self.eve_bases = None
         self.eve_results = None

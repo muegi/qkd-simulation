@@ -3,13 +3,13 @@ BB84 Quantum Key Distribution Protocol Implementation
 """
 
 import numpy as np
-from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
+from qiskit import QuantumCircuit
 from qiskit_aer import AerSimulator
 
 
 class BB84Protocol:
     """
-    Implements the BB84 quantum key distribution protocol.
+    Implements the BB84 quantum key distribution protocol
     
     Attributes:
         n_qubits (int): Number of qubits to transmit
@@ -48,7 +48,7 @@ class BB84Protocol:
     
     def encode_qubit(self, bit, basis):
         """
-        Encode a classical bit into a quantum state.
+        Encode a classical bit into a quantum state
         
         Args:
             bit (int): Classical bit (0 or 1)
@@ -71,7 +71,7 @@ class BB84Protocol:
     
     def measure_qubit(self, qc, basis):
         """
-        Measure a qubit in the specified basis.
+        Measure a qubit in the specified basis
         
         Args:
             qc (QuantumCircuit): Quantum circuit containing the qubit
@@ -89,7 +89,7 @@ class BB84Protocol:
     
     def alice_prepare_qubits(self):
         """
-        Alice generates random bits and bases, then prepares qubits.
+        Alice generates random bits and bases, then prepares qubits
         
         Returns:
             list: List of quantum circuits (prepared qubits)
@@ -108,7 +108,7 @@ class BB84Protocol:
     
     def bob_measure_qubits(self, qubits):
         """
-        Bob randomly selects measurement bases and measures qubits.
+        Bob randomly selects measurement bases and measures qubits
         
         Args:
             qubits (list): List of quantum circuits to measure
@@ -142,8 +142,8 @@ class BB84Protocol:
     
     def sift_keys(self):
         """
-        Perform basis reconciliation (sifting).
-        Keep only bits where Alice and Bob used the same basis.
+        Perform basis reconciliation (sifting)
+        Keep only bits where Alice and Bob used the same basis
         
         Returns:
             tuple: (sifted_key_alice, sifted_key_bob)
@@ -159,7 +159,7 @@ class BB84Protocol:
     
     def run_protocol(self):
         """
-        Execute the complete BB84 protocol.
+        Execute the complete BB84 protocol
         
         Returns:
             dict: Results containing keys and metrics

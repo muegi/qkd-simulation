@@ -3,17 +3,16 @@ Quantum Channel Noise Models
 """
 
 import numpy as np
-from qiskit import QuantumCircuit
 
 
 class NoiseModel:
     """
-    Implements quantum channel noise: depolarization and photon loss.
+    Implements quantum channel noise: depolarization and photon loss
     """
     
     def __init__(self, depolarization_prob=0.0, photon_loss_prob=0.0):
         """
-        Initialize noise model.
+        Initialize noise model
         
         Args:
             depolarization_prob (float): Probability of depolarization (0-1)
@@ -25,13 +24,8 @@ class NoiseModel:
     
     def apply_photon_loss(self, qubits):
         """
-        Simulate photon loss by randomly dropping qubits.
-        
-        Args:
-            qubits (list): List of quantum circuits
-            
-        Returns:
-            tuple: (remaining_qubits, lost_indices)
+        Simulate photon loss by randomly dropping qubits
+
         """
         remaining_qubits = []
         lost_indices = []
@@ -48,14 +42,9 @@ class NoiseModel:
     
     def apply_depolarization(self, qc):
         """
-        Apply depolarization noise to a qubit.
-        Randomly applies X (bit-flip), Z (phase-flip), or Y (both).
+        Apply depolarization noise to a qubit
+        Randomly applies X (bit-flip), Z (phase-flip), or Y (both)
         
-        Args:
-            qc (QuantumCircuit): Quantum circuit
-            
-        Returns:
-            QuantumCircuit: Noisy quantum circuit
         """
         if np.random.random() < self.depolarization_prob:
             # Randomly choose error type
@@ -72,13 +61,8 @@ class NoiseModel:
     
     def apply_noise_to_channel(self, qubits):
         """
-        Apply both photon loss and depolarization to a quantum channel.
-        
-        Args:
-            qubits (list): List of quantum circuits
-            
-        Returns:
-            tuple: (noisy_qubits, lost_indices)
+        Apply both photon loss and depolarization to a quantum channel
+
         """
         # First apply photon loss
         remaining_qubits, lost_indices = self.apply_photon_loss(qubits)
@@ -93,7 +77,7 @@ class NoiseModel:
         return noisy_qubits, lost_indices
     
     def reset(self):
-        """Reset noise statistics."""
+        """Reset noise statistics"""
         self.lost_qubits = 0
 
 

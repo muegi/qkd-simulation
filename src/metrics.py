@@ -7,22 +7,22 @@ import numpy as np
 
 class BB84Metrics:
     """
-    Calculate and track BB84 protocol performance metrics.
+    Calculate and track BB84 protocol performance metrics
     """
     
     def __init__(self):
-        """Initialize metrics tracker."""
+        """Initialize metrics tracker"""
         self.results = {}
     
     def calculate_qber(self, alice_key, bob_key, sample_size=None):
         """
-        Calculate Quantum Bit Error Rate.
+        Calculate Quantum Bit Error Rate
         
         Args:
             alice_key (np.ndarray): Alice's sifted key
             bob_key (np.ndarray): Bob's sifted key
             sample_size (int): Number of bits to sample for error checking
-                              If None, uses 50% of key
+                              If None, uses 15% of key (standard BB84 practice)
         
         Returns:
             tuple: (qber, sampled_bits, error_count)
@@ -30,9 +30,9 @@ class BB84Metrics:
         if len(alice_key) == 0:
             return 0.0, 0, 0
         
-        # Default: sample 50% of the key
+        # Default: sample 15% of the key
         if sample_size is None:
-            sample_size = max(1, len(alice_key) // 2)
+            sample_size = max(1, int(len(alice_key) * 0.15))
         
         # Ensure we don't sample more than available
         sample_size = min(sample_size, len(alice_key))
@@ -52,20 +52,25 @@ class BB84Metrics:
     
     def calculate_final_key_length(self, sifted_key_length, sampled_bits):
         """
-        Calculate final key length after privacy amplification.
+        Calculate key length after sample discard
+        
+        This removes the publicly disclosed sample bits from the sifted key
+        
+        Note: This method only accounts for sample discard. Complete post-processing
+        (CASCADE error correction and privacy amplification) is performed separately
         
         Args:
             sifted_key_length (int): Length of sifted key
             sampled_bits (int): Number of bits used for error detection
             
         Returns:
-            int: Final usable key length
+            int: Key length after removing sample
         """
         return max(0, sifted_key_length - sampled_bits)
     
     def calculate_key_generation_rate(self, final_key_length, initial_qubits):
         """
-        Calculate key generation rate.
+        Calculate key generation rate
         
         Args:
             final_key_length (int): Final usable key bits
@@ -81,7 +86,7 @@ class BB84Metrics:
     def calculate_all_metrics(self, initial_qubits, lost_qubits, 
                             alice_key, bob_key, sample_size=None):
         """
-        Calculate all BB84 metrics.
+        Calculate all BB84 metrics
         
         Args:
             initial_qubits (int): Number of qubits initially transmitted
@@ -119,9 +124,9 @@ class BB84Metrics:
         return self.results
     
     def print_metrics(self):
-        """Print all metrics in a formatted way."""
+        """Print all metrics in a formatted way"""
         if not self.results:
-            print("No metrics calculated yet.")
+            print("No metrics calculated yet")
             return
         
         print("\n" + "="*50)
