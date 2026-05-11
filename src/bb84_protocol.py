@@ -21,7 +21,7 @@ class BB84Protocol:
     
     def __init__(self, n_qubits=100):
         """
-        Initialize BB84 protocol.
+        Initialize BB84 protocol
         
         Args:
             n_qubits (int): Number of qubits to transmit (default: 100)
@@ -36,7 +36,7 @@ class BB84Protocol:
         
     def generate_random_bits(self, n):
         """
-        Generate random classical bits.
+        Generate random classical bits
         
         Args:
             n (int): Number of bits to generate
