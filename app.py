@@ -29,7 +29,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Minimal professional styling
+# Styling
 st.markdown("""
     <style>
     h1 {
@@ -533,18 +533,18 @@ if run_button:
     with col_trans_chart:
         st.markdown("**Channel Transmission**")
         
-        # Pie chart showing received vs lost
+        # Pie chart received vs lost
         fig_trans_pie = go.Figure()
         
         fig_trans_pie.add_trace(go.Pie(
-            labels=['Lost in Channel', 'Successfully Received'],  # Reversed order
-            values=[results['lost_qubits'], results['received_qubits']],  # Reversed order
+            labels=['Lost in Channel', 'Successfully Received'],
+            values=[results['lost_qubits'], results['received_qubits']],
             marker=dict(
-                colors=['#6B7280', '#10B981'],  # Gray first, Green second
+                colors=['#6B7280', '#10B981'],
                 line=dict(width=0),
                 pattern=dict(
-                    shape=['/', ''],  # Hatching first, no pattern second
-                    fgcolor=['#333333', 'rgba(0,0,0,0)']  # Reversed
+                    shape=['/', ''],
+                    fgcolor=['#333333', 'rgba(0,0,0,0)']
                 )
             ),
             texttemplate='%{percent:.2%}<br>%{value} qubits',
@@ -581,7 +581,7 @@ if run_button:
     valid_indices = [i for i in range(len(qubits)) if i not in lost_indices]
     
     if len(valid_indices) > 0:
-        # Pick one surviving qubit to track
+        # Pick one random surviving qubit to track
         sample_idx = np.random.choice(valid_indices)
         position_after = sample_idx - np.sum(lost_indices < sample_idx)
         
@@ -668,7 +668,7 @@ if run_button:
     # Basis Selection distribution
     st.subheader("Basis Selection Distribution")
     
-    # Row 1: Alice and Bob pie charts
+    # Alice and Bob pie charts
     col_alice_pie, col_bob_pie = st.columns(2)
     
     with col_alice_pie:
@@ -828,7 +828,7 @@ if run_button:
         # Create grouped bar chart
         fig_error = go.Figure()
         
-        # Bar 1: Sifted Key (dark blue)
+        # Bar 1: Sifted Key
         fig_error.add_trace(go.Bar(
             x=['Sifted Key'],
             y=[results['sifted_key_length']],
@@ -839,7 +839,7 @@ if run_button:
             showlegend=False
         ))
         
-        # Bar 2: Bits Sampled (medium blue)
+        # Bar 2: Bits Sampled
         fig_error.add_trace(go.Bar(
             x=['Sampled for Error Estimation'],
             y=[results['sampled_bits']],
@@ -850,7 +850,7 @@ if run_button:
             showlegend=False
         ))
         
-        # Bar 3: Clean Bits (light blue)
+        # Bar 3: Clean Bits
         fig_error.add_trace(go.Bar(
             x=['Without Errors'],
             y=[clean_sampled],
@@ -861,7 +861,7 @@ if run_button:
             showlegend=False
         ))
         
-        # Bar 4: Errors (red)
+        # Bar 4: Errors
         fig_error.add_trace(go.Bar(
             x=['Errors Detected'],
             y=[results['error_count']],
@@ -941,7 +941,7 @@ if run_button:
     # Create horizontal bar chart
     fig_qber = go.Figure()
     
-    # Bar 1: Theoretical QBER (blue)
+    # Bar 1: Theoretical QBER
     fig_qber.add_trace(go.Bar(
         y=['Theoretical QBER<br>(Noise Only)'],
         x=[theoretical_qber],
@@ -953,7 +953,7 @@ if run_button:
         showlegend=False
     ))
     
-    # Bar 2: Measured QBER (red if above threshold)
+    # Bar 2: Measured QBER
     measured_color = '#EF4444' if results['qber'] > 11 else '#1E3A8A'
     fig_qber.add_trace(go.Bar(
         y=['Measured QBER<br>(Actual)'],
@@ -974,7 +974,7 @@ if run_button:
         line_width=3
     )
     
-     # Invisible trace for legend
+     # Legend
     fig_qber.add_trace(go.Scatter(
         x=[None],
         y=[None],
@@ -985,7 +985,7 @@ if run_button:
     ))
     
     
-    # Layout with legend at bottom left
+    # Legend layout
     fig_qber.update_layout(
         xaxis=dict(
             title='QBER (%)',
@@ -1014,7 +1014,7 @@ if run_button:
     st.plotly_chart(fig_qber, use_container_width=True, key="qber_comparison")
     
     st.markdown("**QBER Comparative Analysis**")
-    # Simplified table
+    # QBER Comparison Table
     qber_stats_df = pd.DataFrame({
         "Metric": [
             "Theoretical QBER (Noise Only)",
@@ -1139,7 +1139,7 @@ if run_button:
         results['final_key_length']
     ]
     
-    # Plotly bar chart
+    # Pipeline Bar chart
     fig_pipeline = go.Figure()
     
     colors = ['#1E3A8A', '#3B82F6', '#60A5FA', '#93C5FD', '#BFDBFE', '#10B981']
@@ -1192,7 +1192,7 @@ if run_button:
     
 
 else:
-    # Initial state
+    # Homepage
     st.header("Description")
     
     st.markdown("""
